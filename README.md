@@ -23,15 +23,15 @@
 
 ![Image](https://github.com/user-attachments/assets/abbf8ad1-478e-4c65-90d2-276aea7f306a)
 
-1. 사용자 의사에 따라 계획서 반영
+2. 사용자 의사에 따라 계획서 반영
 
 ![Image](https://github.com/user-attachments/assets/65401a99-22fb-4df2-b72e-29afc7bf0608)
 
-1. 최근 일정 조회 및 일정 수정 사항 확인
+3. 최근 일정 조회 및 일정 수정 사항 확인
 
 ![Image](https://github.com/user-attachments/assets/71766a76-852c-4f81-be46-3bd20a013939)
 
-1. 캘린더 수정, 카카오톡 전송 요청 및 마무리 인사말
+4. 캘린더 수정, 카카오톡 전송 요청 및 마무리 인사말
 
 ![Image](https://github.com/user-attachments/assets/efafc82e-15a6-4a99-85e2-c7c1c64e0c4b)
 
