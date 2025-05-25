@@ -21,31 +21,31 @@
 
 1. 인삿말 / 여행지 및 일정 정하기
 
-![image.png](attachment:8c9cdbca-0c41-487f-afaf-a9e1c1803033:image.png)
+![Image](https://github.com/user-attachments/assets/abbf8ad1-478e-4c65-90d2-276aea7f306a)
 
 1. 사용자 의사에 따라 계획서 반영
 
-![image.png](attachment:fd51582c-3f0a-4316-a2cd-d9ddee27a833:image.png)
+![Image](https://github.com/user-attachments/assets/65401a99-22fb-4df2-b72e-29afc7bf0608)
 
 1. 최근 일정 조회 및 일정 수정 사항 확인
 
-![image.png](attachment:83a3ac54-8641-4907-a5de-89cb50404f55:image.png)
+![Image](https://github.com/user-attachments/assets/71766a76-852c-4f81-be46-3bd20a013939)
 
 1. 캘린더 수정, 카카오톡 전송 요청 및 마무리 인사말
 
-![image.png](attachment:bf8cfdeb-aaaf-4ec7-89ba-9ad713ba3ad0:image.png)
+![Image](https://github.com/user-attachments/assets/efafc82e-15a6-4a99-85e2-c7c1c64e0c4b)
 
 캘린더 화면 (As-is)
 
-![IMG_3246.png](attachment:714d017d-3dce-4278-b85d-55fcd48b0515:IMG_3246.png)
+![Image](https://github.com/user-attachments/assets/176d20b8-773c-42b0-8fa3-93895e8dca40)
 
 캘린더 화면 (To-be)
 
-![IMG_3249.png](attachment:4a3709be-39f4-4e53-a854-fa0c47f7d90e:IMG_3249.png)
+![Image](https://github.com/user-attachments/assets/8d7d614f-b54b-4ce8-81ad-785ddb74763a)
 
 카카오톡 전송 화면
 
-![IMG_3248.jpg](attachment:db7e7cd6-d343-40da-a17a-c3f50942d7c6:IMG_3248.jpg)
+![Image](https://github.com/user-attachments/assets/db8ec8ef-6e07-4af7-b17f-2eb255eb3161)
 
 ### LangGraph
 
@@ -54,7 +54,7 @@
 
 ### LangGraph Detail
 
-![image.png](attachment:28761c7f-36f1-48c4-9e01-4374fa79864a:image.png)
+![Image](https://github.com/user-attachments/assets/f39b19cd-58ee-4dc6-8ca5-31bd4c4e1cdc)
 
 - **node**
     1. `plane_response`
