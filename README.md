@@ -78,18 +78,22 @@
     7. `send_kakao_talk` 
         - 여행 일정 카카오톡 메시지 전송
 - **conditional_edge**
-    1. `plane_response`: 일반 LLM 답변
-    2. `detect_question_type`: 질문 타입 감지 (분기처리 위함)
+    1. `detect_question_type`: 질문 타입 감지 (분기처리 위함)
         1. 질문 타입 정의
             1. yorn: 네/아니오와 같은 봇의 이전 답변에 대한 긍/부정 → `plane_response` 
             2. about_travel: 여행 관련 → `is_user_wants_recommend`
             3. about_calendar: 캘린더 작업 관련 → `do_calendar_job`
             4. send_kakakotalk: 카카오톡 메시지 전송 요청 → `send_kakao_talk`
             5. default: 그 외 일반 질문 → `plane_response`
-    3. `is_user_wants_recommend`: 사용자가 추천을 원하고 있는지 여부
+    2. `is_user_wants_recommend`: 사용자가 추천을 원하고 있는지 여부
         1. boolean으로 분기 처리
             1. True → `search_recom_contents`
             2. False → `plane_response`
+    3. `do_calendar_job`: 캘린더 작업 분기 처리
+        1. add: 캘린더 추가 → `add_calendar_schedule`
+        2. delete: 캘린더 삭제 → `delete_calendar_schedule`
+        3. edit: 캘린더 수정 → `edit_calendar_schedule`
+        4. show: 캘린더 조회 → `show_calendar_schedule`
 
 ### 실행 방법
 
