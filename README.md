@@ -35,14 +35,21 @@
 
 ![Image](https://github.com/user-attachments/assets/efafc82e-15a6-4a99-85e2-c7c1c64e0c4b)
 
-캘린더 화면 (As-is)
-<img width="250" alt="Image" src="https://github.com/user-attachments/assets/176d20b8-773c-42b0-8fa3-93895e8dca40" />
+<div style="display: flex; gap: 16px;">
+  <div>
+    <p>캘린더 화면 (As-is)</p>
+    <img width="250" src="https://github.com/user-attachments/assets/176d20b8-773c-42b0-8fa3-93895e8dca40" alt="캘린더 As-is" />
+  </div>
+  <div>
+    <p>캘린더 화면 (To-be)</p>
+    <img width="250" src="https://github.com/user-attachments/assets/8d7d614f-b54b-4ce8-81ad-785ddb74763a" alt="캘린더 To-be" />
+  </div>
+  <div>
+    <p>카카오톡 전송 화면</p>
+    <img width="250" src="https://github.com/user-attachments/assets/db8ec8ef-6e07-4af7-b17f-2eb255eb3161" alt="카카오톡 화면" />
+  </div>
+</div>
 
-캘린더 화면 (To-be)
-<img width="250" alt="Image" src="https://github.com/user-attachments/assets/8d7d614f-b54b-4ce8-81ad-785ddb74763a" />
-
-카카오톡 전송 화면
-<img width="250" alt="Image" src="https://github.com/user-attachments/assets/db8ec8ef-6e07-4af7-b17f-2eb255eb3161" />
 
 ### LangGraph
 
