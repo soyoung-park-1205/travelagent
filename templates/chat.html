@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Travel Agent Chat</title>
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <div class="chat-container">
+    <div class="title">Travel Agent</div>
+    <div class="chat-box" id="chatBox"></div>
+    <div class="input-area">
+      <input type="text" id="chatInput" placeholder="메시지를 입력하세요...">
+      <button id="sendBtn">보내기</button>
+    </div>
+  </div>
+
+  <div class="plan-container">
+    <div class="plan-header">
+      <div class="plan-title">🌟 여행 계획서</div>
+    </div>
+    <div id="planContent">
+      <div class="empty-plan">
+        📝 아직 여행 계획이 없습니다.<br>
+        여행 계획을 세워보세요!
+      </div>
+    </div>
+  </div>
+
+  <div class="update-indicator" id="updateIndicator">
+    📋 여행 계획이 업데이트되었습니다!
+  </div>
+
+  <script>
+    let currentBotMessage = null;
+    let botUrl = "http://127.0.0.1:8000/response";
+    let currentPlan = null;
+
+    // 메시지 관련 함수들
+    function addMessage(text, type) {
+      const msg = document.createElement('div');
+      msg.className = `message ${type}`;
+      msg.textContent = text;
+      chatBox.appendChild(msg);
+      chatBox.scrollTop = chatBox.scrollHeight;
+      return msg;
+    }
+
+    function appendToBotMessage(text) {
+      if (!currentBotMessage) {
+        currentBotMessage = addMessage('', 'bot');
+      }
+      currentBotMessage.textContent += text;
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // 여행 계획 업데이트 함수
+    function updateTravelPlan(planData) {
+      const planContent = document.getElementById('planContent');
+
+      if (!planData || Object.keys(planData).length === 0) {
+        planContent.innerHTML = `
+          <div class="empty-plan">
+            📝 아직 여행 계획이 없습니다.<br>
+            여행 계획을 세워보세요!
+          </div>
+        `;
+        return;
+      }
+
+      // 기본 정보 추출
+      const destination = planData.destination || planData.region || '미정';
+      const startDate = planData.start_date || planData.start_at || '미정';
+      const endDate = planData.end_date || planData.end_at || '미정';
+
+      let html = `
+        <div class="plan-section">
+          <div class="section-title">📍 여행 정보</div>
+          <div class="section-content">
+            <div class="destination-info">
+              <div class="info-item">
+                <div class="info-label">목적지</div>
+                <div class="info-value">${destination}</div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">출발일</div>
+                <div class="info-value">${startDate}</div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">도착일</div>
+                <div class="info-value">${endDate}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // 일정 정보
+      const schedules = planData["schedules"] || [];
+      console.log("schedules: ", schedules)
+      if (schedules && schedules.length > 0) {
+        html += `
+          <div class="plan-section">
+            <div class="section-title">📋 여행 일정</div>
+            <div class="section-content">
+        `;
+
+        schedules.forEach((schedule, index) => {
+          console.log("schedule: ", schedule);
+          let location, timeInfo, day;
+
+          if (typeof schedule === 'object' && schedule !== null) {
+            location = schedule.spot;
+
+            // time 정보 처리
+            if (schedule.time) {
+              if (typeof schedule.time === 'object' && schedule.time.start_at && schedule.time.end_at) {
+                timeInfo = `${schedule.time.start_at} - ${schedule.time.end_at}`;
+              } else if (typeof schedule.time === 'string') {
+                timeInfo = schedule.time;
+              } else {
+                timeInfo = '';
+              }
+            } else {
+              timeInfo = '';
+            }
+
+            // day 정보
+            day = schedule.day || `일정 ${Math.floor(index / 3) + 1}`;
+          } else {
+            // schedule이 문자열인 경우
+            location = schedule;
+            timeInfo = '';
+            day = `일정 ${Math.floor(index / 3) + 1}`;
+          }
+
+          html += `
+            <div class="schedule-item">
+              <div class="schedule-day">${day}</div>
+              ${timeInfo ? `<div class="schedule-time">${timeInfo}</div>` : ''}
+              <div class="schedule-location">${location}</div>
+            </div>
+          `;
+        });
+
+        html += `
+            </div>
+          </div>
+        `;
+      }
+
+      // 메모나 추가 정보
+      if (planData.notes || planData.memo) {
+        html += `
+          <div class="plan-section">
+            <div class="section-title">📝 메모</div>
+            <div class="section-content">
+              ${planData.notes || planData.memo}
+            </div>
+          </div>
+        `;
+      }
+
+      planContent.innerHTML = html;
+      showUpdateIndicator();
+    }
+
+    // 업데이트 알림 표시
+    function showUpdateIndicator() {
+      const indicator = document.getElementById('updateIndicator');
+      indicator.classList.add('show');
+      setTimeout(() => {
+        indicator.classList.remove('show');
+      }, 3000);
+    }
+
+    // 메시지 전송 함수
+    async function sendMessage() {
+      const text = chatInput.value.trim();
+      if (!text) return;
+
+      addMessage(text, 'user');
+      chatInput.value = '';
+      currentBotMessage = null;
+
+      try {
+        currentBotMessage = null;
+        appendToBotMessage('');
+
+        const res = await fetch(botUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+              question: text
+          })
+        });
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder('utf-8');
+        let buffer = '';
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n\n');
+
+          for (let i = 0; i < lines.length - 1; i++) {
+            const line = lines[i].replace(/^data:\s*/, '');
+            if (!line.trim()) continue;
+
+            try {
+              const data = JSON.parse(line);
+
+              // 텍스트 스트리밍
+              if (data.text) {
+                appendToBotMessage(data.text);
+              }
+
+              // 여행 계획 업데이트 감지
+              if (data.plan) {
+                updateTravelPlan(data.plan);
+              }
+
+              // update_plan_from_feedback 호출 감지
+              if (data.plan_updated) {
+                updateTravelPlan(data.plan_updated);
+              }
+
+            } catch (parseError) {
+              console.log('JSON parse error:', parseError);
+            }
+          }
+
+          buffer = lines[lines.length - 1];
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        addMessage('오류가 발생했습니다.', 'bot');
+      }
+    }
+
+    // 이벤트 리스너
+    sendBtn.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+
+    // 초기화
+    window.addEventListener('DOMContentLoaded', () => {
+      addMessage('안녕하세요! 저는 여행 계획 메이트 소소입니다.', 'bot');
+    });
+  </script>
+</body>
+</html>

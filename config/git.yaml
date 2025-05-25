@@ -1,0 +1,24 @@
+api-auth:
+  gpt:
+    key: YOUR_GPT_KEY
+  kakao:
+    access-token:
+      rest-api: YOUR_KAKAO_ACCESS_TOKEN
+  korea-travel:
+    auth-key: YOUR_KOREA_TRAVEL_AUTH_KEY
+api-url:
+  response: http://127.0.0.1:8000/response
+  search: https://dapi.kakao.com/v2/search/web
+  calendar:
+     watch: https://kapi.kakao.com/v2/api/calendar/events
+     create: https://kapi.kakao.com/v2/api/calendar/create/event
+     update: https://kapi.kakao.com/v2/api/calendar/update/event/host
+     delete: https://kapi.kakao.com/v2/api/calendar/delete/event
+  kakaotalk:
+    send: https://kapi.kakao.com/v2/api/talk/memo/send
+    friends: https://kapi.kakao.com/v1/api/talk/friends
+  korea-travel:
+    area-spot: http://apis.data.go.kr/B551011/KorService2/areaBasedList2
+
+kakao-oauth:
+  soyoung: YOUR_KAKAO_OAUTH_TOKEN
